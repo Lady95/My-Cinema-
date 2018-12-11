@@ -36,6 +36,8 @@
                 <label for="pays">Pays : </label>
                 <input type="text" name="pays" id="pays">
             </p>
-        </form>
+            <br>
+            <button>Envoyer</button>
+        </form>        
     </body>
 </html>
