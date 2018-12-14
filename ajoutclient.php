@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>Formulaire : Ajouter un client</h1>
-        <form action="get">
+        <form method="post" action="get">
             <p>
                 <label for="nom">Nom :</label>
                 <input type="text" name="nom" id="nom">
@@ -38,6 +38,8 @@
             </p>
             <br>
             <button>Envoyer</button>
-        </form>        
+        </form> 
+
+        <p><a href="index.php">Retour</a></p>       
     </body>
 </html>
