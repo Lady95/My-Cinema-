@@ -75,7 +75,10 @@ function abonnement($connexion) {
 
 }
 $abo = abonnement($connexion);
-function modifClient($connexion) {
 
+function modifClient($connexion) {
+    $id_abo = $_POST['']; 
+    $id_membre = $_POST[''];
+    $req = "UPDATE membre SET id_abo=2 WHERE id_fiche_perso=1 ";
 }
 ?>
