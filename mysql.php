@@ -1,4 +1,3 @@
-
 <?php
 $serveur = "localhost"; 
 $login = "root"; 
@@ -12,46 +11,71 @@ catch(Exception $e){
     die('Erreur :'.$e->getMessage()); 
 }
 /////////// get genre //////////////////
-function getgenre($connexion) 
+function film_genre($connexion) 
 {
-    $sql = 'SELECT id_genre, nom FROM genre'; 
-    $s = $connexion->prepare($sql); 
-    $s->execute(); 
+    $req = 'SELECT id_genre, nom FROM genre ORDER BY nom'; 
+    $s = $connexion->query($req); 
     $genres = $s->fetchAll(PDO::FETCH_ASSOC); 
     return $genres; 
 }
-$genres = getgenre($connexion); 
+$genres = film_genre($connexion); 
 ////////////////get distrib ///////////////
-function getdistrib($connexion) 
+function distributeur($connexion) 
 {
-    $sql = 'SELECT id_distrib, nom FROM distrib'; 
-    $s = $connexion->prepare($sql); 
-    $s->execute(); 
+    $req = 'SELECT id_distrib, nom FROM distrib ORDER BY nom'; 
+    $s = $connexion->query($req); 
     $distribs = $s->fetchAll(PDO::FETCH_ASSOC); 
     return $distribs; 
 }
-$distribs = getdistrib($connexion);
+$distribs = distributeur($connexion);
 //////////////get film ////////////////
-function getfilm($connexion) 
+function film($connexion) 
 {
-    $sql = 'SELECT film.titre, genre.nom, distrib.nom AS distributeur FROM film 
-    INNER JOIN genre ON genre.id_genre=film.id_genre 
-    INNER JOIN distrib ON distrib.id_distrib = film.id_distrib
+    $req = 'SELECT film.titre, genre.nom, distrib.nom AS distributeur FROM film 
+    LEFT JOIN genre ON genre.id_genre=film.id_genre 
+    LEFT JOIN distrib ON distrib.id_distrib = film.id_distrib
     WHERE 1 '; 
-    if (isset($_GET['search_film']) AND !empty($_GET['search_film'])) {
-        $sql .= "AND film.titre LIKE '%{$_GET['search_film']}%'";
+
+    if (isset($_GET['search_film'])) {
+        $req .= "  AND film.titre LIKE '%{$_GET['search_film']}%' ";
     }
-    elseif (isset($_GET['genre']) AND !empty($_GET['genre'])) {
-        $sql .= "AND genre.id_genre = '{$_GET['genre']}' ";
+    
+    if (isset($_GET['genre']) AND !empty($_GET['genre'])) {
+        $req .= " AND genre.id_genre = '{$_GET['genre']}' ";
     }
-    elseif (isset($_GET['distrib']) AND !empty($_GET['distrib'])) {
-        $sql .= "AND distrib.id_distrib LIKE '%{$_GET['distrib']}' ";
+    
+    if (isset($_GET['distrib']) AND !empty($_GET['distrib'])) {
+        $req .= "  AND distrib.id_distrib ='{$_GET['distrib']}' ";
     }
-    //echo $sql;
-    $s = $connexion->prepare($sql); 
+    //echo $req;
+    $s = $connexion->prepare($req); 
     $s->execute(); 
     $films = $s->fetchAll(PDO::FETCH_ASSOC); 
     return $films; 
 }
-$films = getfilm($connexion); 
+$films = film($connexion); 
+
+function listeClients($connexion) {
+    $req = 'SELECT fiche_personne.nom, fiche_personne.prenom, membre.id_fiche_perso, abonnement.nom AS abo 
+    FROM fiche_personne 
+    INNER JOIN membre ON membre.id_fiche_perso = fiche_personne.id_perso  
+    INNER JOIN abonnement on abonnement.id_abo = membre.id_abo 
+    ORDER BY membre.id_fiche_perso '; 
+    $s = $connexion->query($req); 
+    $clients = $s->fetchAll(PDO::FETCH_ASSOC);
+    return $clients; 
+}
+$clients = listeClients($connexion);
+
+function abonnement($connexion) {
+    $req = 'SELECT id_abo, nom FROM abonnement'; 
+    $s = $connexion->query($req); 
+    $abo = $s->fetchAll(); 
+    return $abo; 
+
+}
+$abo = abonnement($connexion);
+function modifClient($connexion) {
+
+}
 ?>

@@ -9,8 +9,18 @@
         <script src="main.js"></script>
     </head>
     <body>
+         <header>
+            <h1>My cinema</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="ajoutclient.php">Ajouter un client</a></li>
+                    <li><a href="listes_clients.php">Listes des clients</a></li>
+                </ul>
+            </nav>
+            </header>
         <h1>Formulaire : Ajouter un client</h1>
-        <form method="post" action="get">
+        <form method="post" action="">
             <p>
                 <label for="nom">Nom :</label>
                 <input type="text" name="nom" id="nom">

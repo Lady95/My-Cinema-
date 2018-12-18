@@ -10,14 +10,14 @@
     <body>
         <div>
             <header>
-            <h1>Cinema City</h1>
+            <h1>My cinema</h1>
             <nav>
                 <ul>
+                    <li><a href="index.php">Accueil</a></li>
                     <li><a href="ajoutclient.php">Ajouter un client</a></li>
                     <li><a href="listes_clients.php">Listes des clients</a></li>
                 </ul>
-            </nav>
-            
+                </nav>
             </header>
             
             <form method="get" action="recherchefilms.php">
@@ -26,16 +26,18 @@
                 <input type="text" name='search_film' placeholder="Recherche">
                 <label for="genre">Genres</label>
                 <select name="genre" id="genre">
-                <?php foreach($genres as $genre): ?>
-                <option value="<?=$genre['id_genre']?>"><?= $genre['nom']?></option>
-                <?php endforeach;?>
+                    <option value="" selected>veuillez sélectionner</option>
+                    <?php foreach($genres as $genre): ?>
+                    <option value="<?=$genre['id_genre']?>"><?= $genre['nom']?></option>
+                    <?php endforeach;?>
                 </select>
-
+                
                 <label for="distrib">Distributeur</label>
                 <select name="distrib" id="distrib">
-                <?php foreach($distribs as $distrib): ?>
-                <option value="<?=$distrib['id_distrib']?>"><?= $distrib['nom']?></option>
-                <?php endforeach;?>
+                    <option value="" selected>veuillez sélectionner</option>
+                    <?php foreach($distribs as $distrib): ?>
+                    <option value="<?=$distrib['id_distrib']?>"><?= $distrib['nom']?></option>
+                    <?php endforeach;?>
                 </select>
                 
                 <input type="submit" name="valider" value="Entrer">

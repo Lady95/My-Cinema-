@@ -7,7 +7,7 @@ if (isset($_GET['button_search']) AND $_GET['button_search'] == "recherche")
     $terme = trim($terme); 
     $terme = strip_tags($terme); 
 }
-if (isset($terme))
+if (isset($terme) && !empty($terme))
 {
     $terme = strtolower($terme);
     $select_term = $connexion->prepare("SELECT fiche_personne.nom AS nom, fiche_personne.prenom AS prenom,
@@ -17,11 +17,7 @@ if (isset($terme))
     AND membre.id_abo = abonnement.id_abo 
     AND fiche_personne.nom LIKE ? 
     OR fiche_personne.prenom LIKE ?");
-    $select_term->execute(array("%".$terme."%", "%".$terme."%")); 
-}
-else 
-{
-    $message = "Vous devez entrer votre requete dans la barre de recherche";
+    $select_term->execute(array("%".$terme."%", "%".$terme."%"));
 }
 ?>
 <!DOCTYPE html>
@@ -32,21 +28,13 @@ else
  </head>
  <body>
  <p><a href="index.php">Retour à l'accueil</a></p>
-  <?php
-  while($term_find = $select_term->fetch())
-  {
-      if (empty($_GET['terme'])){
-          echo " Aucune liste corresponde à votre recherche.";
-          break; 
-      } else {
-          echo "<div><h2> Prénom : ".$term_find['prenom']."</h2><h2> Nom : ".$term_find['nom']."</h2>
-          <p> type d'abonnement : " .$term_find['abo']."</p><div>";
-      }
-  }
-  $select_term->closeCursor();
-   ?>
-   
-   <p><a href="index.php">Retour à l'accueil</a></p>
-
+     <div>
+         <?php while($term_find = $select_term->fetch()) {
+             echo "<div>
+             <h2> Prénom : ".$term_find['prenom']."</h2><h2> Nom : ".$term_find['nom']."</h2>
+             <p> type d'abonnement : " .$term_find['abo']."</p>
+          
+          <div>"; } ?>
+    </div>
  </body>
 </html>
