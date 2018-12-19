@@ -47,7 +47,7 @@ function film($connexion)
         $req .= "  AND distrib.id_distrib = '{$_GET['distrib']}' ";
     }
     
-    echo $req;
+    //echo $req;
     $s = $connexion->prepare($req); 
     $s->execute(); 
     $films = $s->fetchAll(PDO::FETCH_ASSOC); 
