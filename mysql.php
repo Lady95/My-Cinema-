@@ -29,25 +29,25 @@ function distributeur($connexion)
 }
 $distribs = distributeur($connexion);
 //////////////get film ////////////////
-function film($connexion) 
+function film($connexion)  
 {
+    
     $req = 'SELECT film.titre, genre.nom, distrib.nom AS distributeur FROM film 
     LEFT JOIN genre ON genre.id_genre=film.id_genre 
     LEFT JOIN distrib ON distrib.id_distrib = film.id_distrib
     WHERE 1 '; 
-
-    if (isset($_GET['search_film'])) {
-        $req .= "  AND film.titre LIKE '%{$_GET['search_film']}%' ";
-    }
     
+    if (isset($_GET['search_film']) AND !empty($_GET['search_film'])) {
+        $req .= "  AND film.titre LIKE '%{$_GET['search_film']}%'";
+    }
     if (isset($_GET['genre']) AND !empty($_GET['genre'])) {
         $req .= " AND genre.id_genre = '{$_GET['genre']}' ";
     }
-    
     if (isset($_GET['distrib']) AND !empty($_GET['distrib'])) {
-        $req .= "  AND distrib.id_distrib ='{$_GET['distrib']}' ";
+        $req .= "  AND distrib.id_distrib = '{$_GET['distrib']}' ";
     }
-    //echo $req;
+    
+    echo $req;
     $s = $connexion->prepare($req); 
     $s->execute(); 
     $films = $s->fetchAll(PDO::FETCH_ASSOC); 
@@ -72,7 +72,7 @@ function abonnement($connexion) {
     $s = $connexion->query($req); 
     $abo = $s->fetchAll(); 
     return $abo; 
-
+    
 }
 $abo = abonnement($connexion);
 
