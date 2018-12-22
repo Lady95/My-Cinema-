@@ -9,9 +9,22 @@ include('mysql.php');
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
     <script src="main.js"></script>
 </head>
 <body>
+    <header>
+    <h1>My cinema</h1>
+    <nav>
+        <ul>
+            <li><a href="index.php">Accueil</a></li>
+            <li><a href="ajoutclient.php">Ajouter un client</a></li>
+            <li><a href="listes_clients.php">Listes des clients</a></li>
+            <li><a href="listes_clientshisto.php">Listes de l'historique des clients</a></li>
+
+        </ul>
+    </nav>
+    </header>
     <table border=1>
                 <tbody>
                 <?php foreach($films as $film): ?>
