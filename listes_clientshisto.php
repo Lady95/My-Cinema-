@@ -8,9 +8,7 @@ include('mysql.php');
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>historique des clients</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css"/>
-        <script src="main.js"></script>
     </head>
     <body>
     <header>

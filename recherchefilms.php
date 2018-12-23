@@ -35,26 +35,37 @@
          </nav>
       </header>
       <div class="container-fluid" style="margin-top:100px">
-         <form method="get" action="recherchefilms.php">
-            <h3>Recherche film</h3>
-            <input type="search" name='search_film' placeholder="Recherche">
-            <label for="genre">Genres</label>
-            <select name="genre" id="genre">
-               <option value="" selected>veuillez sélectionner</option>
-               <?php foreach($genres as $genre): ?>
-               <option value="<?=$genre['id_genre']?>"><?= $genre['nom']?></option>
-               <?php endforeach;?>
-            </select>
-            <label for="distrib">Distributeur</label>
-            <select name="distrib" id="distrib">
-               <option value="" selected>veuillez sélectionner</option>
-               <?php foreach($distribs as $distrib): ?>
-               <option value="<?=$distrib['id_distrib']?>"><?= $distrib['nom']?></option>
-               <?php endforeach;?>
-            </select>
-            <input type="submit" name="valider" value="Entrer">
-         </form>
-         <table border=1>
+      <form method="get" action="recherchefilms.php">
+               <h3>Recherche film</h3>
+               <div class="form-group">
+                  <input class="form-control" type="search" name='search_film' placeholder="Titre du film" aria-label="Search">
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="genre">Genre</label>
+                  </div>
+                  <select class="custom-select" name="genre" id="genre">
+                     <option value="" selected>Veuillez selectionner</option>
+                     <?php foreach($genres as $genre): ?>
+                     <option value="<?=$genre['id_genre']?>"><?= $genre['nom']?></option>
+                     <?php endforeach;?>
+                  </select>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="distrib">Distributeur</label>
+                  </div>
+                  <select class="custom-select" name="distrib" id="distrib">
+                     <option value="" selected>Veuillez selectionner</option>
+                     <?php foreach($distribs as $distrib): ?>
+                     <option value="<?=$distrib['id_distrib']?>"><?= $distrib['nom']?></option>
+                     <?php endforeach;?>
+                  </select>
+               </div>
+               <button class="btn btn-primary btn-lg btn-block" type="submit" name="valider">Recherche</button>
+            </form>
+            <br>
+         <table>
             <thead>
                <tr>
                   <th>Titre</th>
