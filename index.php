@@ -24,7 +24,7 @@
             <form method="get" action="recherchefilms.php">
                 <h3>Recherche film</h3>
 
-                <input type="text" name='search_film' placeholder="Recherche">
+                <input type="search" name='search_film' placeholder="Recherche">
                 <label for="genre">Genres</label>
                 <select name="genre" id="genre">
                     <option value="" selected>veuillez sélectionner</option>
@@ -45,13 +45,13 @@
             </form>
             <form method="get" action="verif-search.php">
                 <h3>Recherche membre</h3>
-                <input type="search" name="terme" placeholder="Nom, prénom" >
+                <input type="search" name="terme" placeholder="Nom et/ou Prénom" >
                 <input type="submit" name="button_search" value="recherche">
             </form>
 
-            <form method="get" action="espaceMembre.php">
-            <h3>  historique du membre</h3>
-                <input type="text" name="histomembre" placeholder="Nom et Prénom">
+            <form method="get" action="listes_clientshisto.php">
+            <h3>Historique du membre</h3>
+                <input type="search" name="histomembre" placeholder="Nom et/ou Prénom">
                 <input type="submit" value="Aller">
             </form>
             </div>

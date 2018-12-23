@@ -29,13 +29,13 @@ include('mysql.php');
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>Id</th>
                             <th>Nom</th>
                             <th>Prénom</th>
-                            <th>type d'abonnement</th>
-                            <th>modifier l'abonnement</th>
-                            <th>supprimer l'abonnement</th>
-                            <th>supprimer le membre</th>
+                            <th>Type d'abonnement</th>
+                            <th>Modifier l'abonnement</th>
+                            <th>Supprimer l'abonnement</th>
+                            <!--<th>supprimer le membre</th>-->
                         </tr>
                     </thead>
                 <tbody>
@@ -46,8 +46,8 @@ include('mysql.php');
                         <td><?php echo $val['prenom'];?></td>
                         <td><?php print $val['abo']; ?></td>
                         <td>
-                        <form action="" method="get">
-                            <select  name="idabo" id="idabo" >
+                        <form action="listes_clients.php?idmembre=<?php $_GET['idmembre']?>" method="get" target="_self">
+                            <select name="idabo" id="idabo" >
                             <option value=" " selected disabled>veuillez sélectionner</option>
                             <?php foreach($abo as $elem) {
                                 echo "<option value=" . $elem['id_abo'].">" .$elem['nom']."</option>";
@@ -56,8 +56,8 @@ include('mysql.php');
                             <?php echo "<input type='hidden' id='idmembre' name='idmembre' value=". $val['id_fiche_perso'].">";?>
                             <input type="submit" value="modifier">
                         </td>
-                        <td><button  name="suppabo" id="suppabo">suppimer</button></td>
-                        <td><button  name ="supmembre" id="supmembre">supprimer le membre</button></td>
+                        <td><button name="suppabo" id="suppabo">suppimer</button></td>
+                       <!-- <td><button name ="supmembre" id="supmembre">supprimer le membre</button></td>-->
                         </form>
                     </tr>
                     <?php endforeach; ?>

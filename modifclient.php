@@ -9,7 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" media="screen" href="css/styles.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
-        <script src="main.js"></script>
     </head>
     <body>
          <header>

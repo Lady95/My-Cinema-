@@ -26,10 +26,20 @@ include('mysql.php');
     </nav>
     </header>
     <table border=1>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Resumé</th>
+                <th>Genre</th>
+                <th>Distributeur</th>
+            
+            </tr>
+        </thead>
                 <tbody>
                 <?php foreach($films as $film): ?>
                     <tr>
                         <td><?= $film['titre']?></td> 
+                        <td><?= $film['resum']?></td>
                         <td><?= $film['nom']?></td>
                         <td><?= $film['distributeur']?></td> 
                     </tr>

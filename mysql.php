@@ -10,6 +10,7 @@ try{
 catch(Exception $e){
     die('Erreur :'.$e->getMessage()); 
 }
+
 /////////// get genre //////////////////
 function film_genre($connexion) 
 {
@@ -31,7 +32,7 @@ $distribs = distributeur($connexion);
 //////////////get film ////////////////
 function film($connexion)  
 {
-    $req = 'SELECT film.titre, genre.nom, distrib.nom AS distributeur FROM film 
+    $req = 'SELECT film.titre, genre.nom, film.resum, distrib.nom AS distributeur FROM film 
     LEFT JOIN genre ON genre.id_genre=film.id_genre 
     LEFT JOIN distrib ON distrib.id_distrib = film.id_distrib
     WHERE 1 '; 
@@ -76,13 +77,27 @@ $abo = abonnement($connexion);
 function historiqueClient($connexion)
 {
     $req = "SELECT membre.id_fiche_perso, fiche_personne.nom, fiche_personne.prenom, film.titre, historique_membre.date 
-    FROM fiche_personne 
-    LEFT JOIN membre ON membre.id_fiche_perso = fiche_personne.id_perso 
-    LEFT JOIN historique_membre ON historique_membre.id_membre = membre.id_membre
-    LEFT JOIN film ON film.id_film = historique_membre.id_film"; 
-    $s = $connexion->query($req); 
-    $histoclient = $s->fetch(PDO::FETCH_ASSOC); 
+    FROM fiche_personne
+    INNER JOIN membre ON membre.id_fiche_perso = fiche_personne.id_perso 
+    INNER JOIN historique_membre ON historique_membre.id_membre = membre.id_membre
+    INNER JOIN film ON film.id_film = historique_membre.id_film";
+    
+    if (isset($_GET['histomembre']) and !empty($_GET['histomembre'])) {
+        $req = "SELECT membre.id_fiche_perso, fiche_personne.nom, fiche_personne.prenom, film.titre, historique_membre.date 
+        FROM fiche_personne
+        INNER JOIN membre ON membre.id_fiche_perso = fiche_personne.id_perso 
+        INNER JOIN historique_membre ON historique_membre.id_membre = membre.id_membre
+        INNER JOIN film ON film.id_film = historique_membre.id_film 
+        WHERE CONCAT(fiche_personne.nom,' ',fiche_personne.prenom) LIKE '%{$_GET['histomembre']}%'
+        OR CONCAT(fiche_personne.prenom,' ',fiche_personne.nom) LIKE '%{$_GET['histomembre']}%'"; 
+        
+        
+    }
+    $s = $connexion->prepare($req); 
+    $s->execute(); 
+    $histoclient = $s->fetchall(PDO::FETCH_ASSOC); 
     return $histoclient;
+    print_r($histoclient);
 }
 $histoclient = historiqueClient($connexion);
 
@@ -90,8 +105,10 @@ function idClientsabo($connexion) {
     
     if (isset($_GET['idabo'])) {
         $req = "UPDATE membre SET id_abo= '{$_GET['idabo']}' WHERE id_fiche_perso= '{$_GET['idmembre']}' ";
-        $s = $connexion->query($req); 
-        $cliabo = $s->fetch(); 
+        $connexion->quote($req);
+        $s = $connexion->prepare($req); 
+        $s->execute(); 
+        $cliabo = $s->rowCount(); 
         return $cliabo;
     }
 }
@@ -99,10 +116,12 @@ $cliabo = idClientsabo($connexion);
 
 function suppabo($connexion) {
     
-    if (isset($_GET['suppabo']) and !empty(['suppabo'])){
+    if (isset($_GET['suppabo'])){
         $req = "UPDATE membre SET id_abo= NULL  WHERE id_fiche_perso= '{$_GET['idmembre']}' ";
-        $s = $connexion->query($req); 
-        $suppabo = $s->fetch(); 
+        $connexion->quote($req);
+        $s = $connexion->prepare($req); 
+        $s->execute(); 
+        $suppabo = $s->rowCount(); 
         //echo $req;
         return $suppabo;
     }
