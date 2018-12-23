@@ -34,11 +34,14 @@ include('mysql.php');
             </nav>
             </header>
             <div class="container-fluid" style="margin-top:100px">
-        <form method="get" action="listes_clientshisto.php">
-            <h3>  historique du membre</h3>
-            <input type="search" name="histomembre" placeholder="Nom et Prénom">
-            <input type="submit" value="Envoyer">
-        </form>
+            <form method="get" action="listes_clientshisto.php">
+                  <h3>Historique du membre</h3>
+                  <div class="form-group">
+                     <input class="form-control" type="search" name="histomembre" placeholder="Nom et/ou Prénom">
+                  </div>
+                  <input class="btn btn-secondary btn-lg" type="submit" value="Recherche">
+               </form>
+               <br>
         <table>
             <thead>
                 <tr>
